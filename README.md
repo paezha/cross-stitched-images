@@ -52,6 +52,7 @@ values:
 im_df <- im %>%
   grayscale() %>% 
   as.data.frame() %>%
+  # Reverse the y axis; conventionally, images index the pixel starting from the top-left corner of the image
   mutate(y = -(y - max(y)))
 ```
 
@@ -61,7 +62,7 @@ the hexadecimal color names:
 ``` r
 color_df <- im %>%
   as.data.frame(wide="c") %>% 
-  # Reverse the y axis
+  # Reverse the y axis; retrieve the color channels and save as strings with the hexadecimal name of the colors
   mutate(y = -(y - max(y)),
          hex_color = rgb(c.1,
                          c.2,
