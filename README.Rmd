@@ -31,7 +31,7 @@ library(tidyr) # Tidying data
 First, read the image using `imager::load.image()`:
 ```{r}
 # Name of the image
-im_name <- "trompo"
+im_name <- "umbrella-2"
 # Read named image
 im <- load.image(glue::glue(here::here(), "/source-images/{im_name}.jpg"))
 ```
@@ -41,7 +41,7 @@ Display the image information:
 im
 ```
 
-Plot the image. This image is courtesy of my talented cousin [Dolores Robles Martinez](https://www.instagram.com/doloresrobles_m/?hl=en):
+Plot the image. Some of the images are courtesy of my talented cousin [Dolores Robles Martinez](https://www.instagram.com/doloresrobles_m/?hl=en):
 ```{r}
 plot(im)
 ```
@@ -85,14 +85,14 @@ ggplot() +
 This next chunk is a data frame for plotting paths for the vertical "stitches" of the pattern. The "gap" is the space between stitches. A small gap produces a tighter stitched pattern, and a larger gap produces a looser woven pattern. A gap of 1 simply replicates the image:
 ```{r}
 # Select a gap
-gap <- 10
+gap <- 30
 stitch <- expand.grid(x = seq(1, max(im_df$x), gap), y = seq(1, max(im_df$y), gap))
 ```
 
 Add noise. Notice that the spacing between threads is the "gap" so you probably want to use an amount of noise that does not deviate more than about half of that (with a gap of 10 I use plus/minus 3 horizontal deviations):
 ```{r}
 stitch <- stitch %>%
-  mutate(dx = runif(n(), -3, 3),
+  mutate(dx = runif(n(), -gap/3, gap/3),
          dx = x + dx)
 ```
 

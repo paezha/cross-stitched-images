@@ -24,7 +24,7 @@ First, read the image using `imager::load.image()`:
 
 ``` r
 # Name of the image
-im_name <- "trompo"
+im_name <- "umbrella-2"
 # Read named image
 im <- load.image(glue::glue(here::here(), "/source-images/{im_name}.jpg"))
 ```
@@ -33,11 +33,12 @@ Display the image information:
 
 ``` r
 im
-#> Image. Width: 1731 pix Height: 1730 pix Depth: 1 Colour channels: 3
+#> Image. Width: 3024 pix Height: 4032 pix Depth: 1 Colour channels: 3
 ```
 
-Plot the image. This image is courtesy of my talented cousin [Dolores
-Robles Martinez](https://www.instagram.com/doloresrobles_m/?hl=en):
+Plot the image. Some of the images are courtesy of my talented cousin
+[Dolores Robles
+Martinez](https://www.instagram.com/doloresrobles_m/?hl=en):
 
 ``` r
 plot(im)
@@ -96,7 +97,7 @@ a looser woven pattern. A gap of 1 simply replicates the image:
 
 ``` r
 # Select a gap
-gap <- 10
+gap <- 30
 stitch <- expand.grid(x = seq(1, max(im_df$x), gap), y = seq(1, max(im_df$y), gap))
 ```
 
@@ -107,7 +108,7 @@ deviations):
 
 ``` r
 stitch <- stitch %>%
-  mutate(dx = runif(n(), -3, 3),
+  mutate(dx = runif(n(), -gap/3, gap/3),
          dx = x + dx)
 ```
 
@@ -143,6 +144,7 @@ cstitch <- function(y = 1, width = 100, xstart = 1, xend = 11){
 Create alternating cross-stitches:
 
 ``` r
+
 
 # Spacing in y is every twice the gap, starting at 1
 y <- seq(1, 
@@ -238,6 +240,7 @@ ggplot() +
 ![](README_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
 ``` r
+
 # Save named image
 ggsave(glue::glue(here::here(), "/output/{im_name}-woven.png"),
        height = 7,
